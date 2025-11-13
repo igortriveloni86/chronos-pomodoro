@@ -3,7 +3,7 @@ import type { TaskStateModel } from "./TaskStateModel";
 export type TaskModel = {
   id: string;
   name: string;
-  durantion: number; // duração em minutos
+  duration: number; // duração em minutos
   startDate: number;
   completeDate: number | null; // quando o timer chega ao final
   interrupteDate: number | null; // quando o usuário interrompe a task
