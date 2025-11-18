@@ -1,73 +1,90 @@
-# React + TypeScript + Vite
+# Chronos — Pomodoro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicativo Pomodoro simples construído com React + TypeScript e Vite, focado em gerenciar ciclos de trabalho/pausa, histórico de tarefas e notificações sonoras.
 
-Currently, two official plugins are available:
+**Descrição**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Propósito:** Fornecer uma interface leve para gerenciar sessões Pomodoro, acompanhar tarefas e armazenar histórico.
+- **Público-alvo:** Usuários que desejam produtividade por meio da técnica Pomodoro.
 
-## React Compiler
+**Principais funcionalidades**
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **Temporizador Pomodoro:** iniciar/pausar/reiniciar ciclos de trabalho e pausa.
+- **Histórico de tarefas:** salvar e ordenar tarefas concluídas com timestamps.
+- **Notificações sonoras:** carga de áudios para alertar fim de ciclo.
+- **Configurações:** ajustar duração dos ciclos e preferências do usuário.
 
-## Expanding the ESLint configuration
+**Tecnologias**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Framework:** React 19 + TypeScript
+- **Bundler/Dev:** Vite
+- **Estado/contexto:** Context API (ex.: `src/contexts/TaskContext`)
+- **Workers:** Web Worker (`src/workers/timerWorker.js`) para manter o temporizador fora do thread principal
+- **Outras libs:** `date-fns`, `react-toastify`, `lucide-react`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+**Instalação**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. Clone o repositório:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+git clone https://github.com/igortriveloni86/chronos-pomodoro.git
+cd chronos-pomodoro
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Instale dependências:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```powershell
+npm install
 ```
+
+3. Rodar em desenvolvimento:
+
+```powershell
+npm run dev
+```
+
+4. Build de produção:
+
+```powershell
+npm run build
+```
+
+5. Visualizar build (preview):
+
+```powershell
+npm run preview
+```
+
+**Scripts disponíveis**
+
+- `npm run dev` : inicia o servidor de desenvolvimento (Vite).
+- `npm run build` : compila TypeScript e gera o build com Vite.
+- `npm run preview` : serve a versão de produção para verificação local.
+- `npm run lint` : executa o ESLint sobre o código.
+
+**Estrutura do projeto (resumo)**
+
+- `src/` : código-fonte principal.
+  - `components/` : componentes reutilizáveis (Botões, Inputs, Contadores, etc.).
+  - `contexts/TaskContext/` : lógica e reducer para tarefas e ciclos.
+  - `workers/` : `timerWorker.js` e `TimeWorkerManager.ts` para separar o temporizador do main thread.
+  - `utils/` : utilitários como formatação de tempo, seleção do próximo ciclo, carregamento de beep, etc.
+
+**Notas importantes**
+
+- O temporizador utiliza um Web Worker para manter contagem precisa mesmo quando a interface fica ocupada.
+- O estado global de tarefas e ciclos é gerenciado por um contexto React (`TaskContext`) com reducer — ver `src/contexts/`.
+
+**Contribuindo**
+
+- Abra uma issue descrevendo o problema ou feature desejada.
+- Faça um fork, crie uma branch com a feature/bugfix e envie um Pull Request.
+- Siga o padrão existente de componentes e mantenha o TypeScript tipado.
+
+**Licença**
+
+Este repositório não especifica uma licença. Adicione um arquivo `LICENSE` caso queira publicar sob termos específicos (por exemplo MIT).
+
+**Contato**
+
+- Abra issues ou PRs no repositório GitHub: `https://github.com/igortriveloni86/chronos-pomodoro`.
