@@ -23,6 +23,7 @@ export function taskReducer(
         tasks: [...state.tasks, newTask],
       };
     }
+
     case TaskActionTypes.INTERRUPT_TASK: {
       return {
         ...state,
@@ -40,6 +41,7 @@ export function taskReducer(
         }),
       };
     }
+
     case TaskActionTypes.COMPLETE_TASK: {
       return {
         ...state,
@@ -61,6 +63,7 @@ export function taskReducer(
     case TaskActionTypes.RESET_TASK: {
       return { ...initialTaskState };
     }
+
     case TaskActionTypes.COUNT_DOWN: {
       return {
         ...state,
@@ -69,6 +72,10 @@ export function taskReducer(
           action.payload.secondsRemaining
         ),
       };
+    }
+
+    case TaskActionTypes.CHANGE_SETTINGS: {
+      return { ...state, config: { ...action.payload } };
     }
   }
 
